@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ID+ Carômetro Digital</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ID+ Carômetro Digital – conheça quem dança com você.">
+<!-- Ícone rosa: iPhone (apple-touch-icon), Android (manifest) e navegador (favicon) -->
+<link rel="apple-touch-icon" href="icone-180.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0A2234">
+<!-- No iPhone, o atalho abre em tela cheia, sem a barra do Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ID+">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  html, body { margin:0; padding:0; height:100%; background:#0A2234; overflow:hidden; }
+  iframe { position:fixed; inset:0; width:100%; height:100%; border:0; display:block; }
+  /* Plano B: se o app não carregar dentro da porta em 15 s, aparece um botão para abrir direto */
+  #planoB { position:fixed; left:16px; right:16px; bottom:max(24px, env(safe-area-inset-bottom)); display:none;
+    padding:14px; border-radius:14px; background:#EC268F; color:#fff; text-align:center; text-decoration:none;
+    font:700 16px/1.2 Arial, Helvetica, sans-serif; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+</style>
+</head>
+<body>
+<iframe id="app" src="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec" title="ID+ Carômetro Digital" allow="clipboard-write"></iframe>
+<a id="planoB" href="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec">Abrir o ID+</a>
+<script>
+  var carregou = false;
+  document.getElementById('app').addEventListener('load', function () { carregou = true; });
+  setTimeout(function () { if (!carregou) document.getElementById('planoB').style.display = 'block'; }, 15000);
+</script>
+</body>
+</html>
