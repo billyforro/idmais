@@ -32,7 +32,7 @@
   #espera .barra { width:160px; height:5px; border-radius:3px; background:rgba(255,255,255,.18); overflow:hidden; }
   #espera .barra i { display:block; width:40%; height:100%; border-radius:3px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
   /* v5: assinatura discreta na tela de espera */
-  #espera .assinatura { font-size:14px; font-weight:400; letter-spacing:.4px; color:rgba(255,255,255,.55); margin-top:-6px; }
+  #espera .assinatura { font-size:15px; font-weight:400; letter-spacing:.4px; color:rgba(255,255,255,.55); margin-top:-6px; }
   #espera .assinatura b { color:#F6A6D1; font-weight:700; }
   @keyframes pulsa { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); box-shadow:0 14px 36px rgba(236,38,143,.6); } }
   @keyframes pontos { 0% { width:0; } 100% { width:1.3em; } }
@@ -51,8 +51,13 @@
   var carregou = false;
   document.getElementById('app').addEventListener('load', function () {
     carregou = true;
-    var e = document.getElementById('espera'); // v4: esconde a tela de espera quando o app chega
-    if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); }
+    // v6: a tela de espera fica no mínimo 3 s desde a abertura (para dar tempo de ler o "by Billy");
+    // se o app já demorou mais que isso para carregar, não espera nada a mais.
+    var falta = Math.max(0, 3000 - performance.now());
+    setTimeout(function () {
+      var e = document.getElementById('espera');
+      if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); }
+    }, falta);
   });
   setTimeout(function () { var e = document.getElementById('espera'); if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); } }, 15000);
   setTimeout(function () { if (!carregou) document.getElementById('planoB').style.display = 'block'; }, 15000);
