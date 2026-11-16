@@ -31,6 +31,9 @@
   #espera .texto span { display:inline-block; animation:pontos 1.2s steps(4,end) infinite; width:1.3em; text-align:left; overflow:hidden; vertical-align:bottom; }
   #espera .barra { width:160px; height:5px; border-radius:3px; background:rgba(255,255,255,.18); overflow:hidden; }
   #espera .barra i { display:block; width:40%; height:100%; border-radius:3px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
+  /* v5: assinatura discreta na tela de espera */
+  #espera .assinatura { font-size:14px; font-weight:400; letter-spacing:.4px; color:rgba(255,255,255,.55); margin-top:-6px; }
+  #espera .assinatura b { color:#F6A6D1; font-weight:700; }
   @keyframes pulsa { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); box-shadow:0 14px 36px rgba(236,38,143,.6); } }
   @keyframes pontos { 0% { width:0; } 100% { width:1.3em; } }
   @keyframes corre { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
@@ -42,7 +45,7 @@
 </head>
 <body>
 <iframe id="app" src="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec" title="ID+ Carômetro" allow="clipboard-write; autoplay; fullscreen"></iframe>
-<div id="espera" aria-live="polite"><div class="selo">ID<i>+</i></div><div class="texto">Preparando o Carômetro<span>...</span></div><div class="barra"><i></i></div></div>
+<div id="espera" aria-live="polite"><div class="selo">ID<i>+</i></div><div class="texto">Preparando o Carômetro<span>...</span></div><div class="barra"><i></i></div><div class="assinatura">by <b>Billy</b></div></div>
 <a id="planoB" href="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec">Abrir o ID+</a>
 <script>
   var carregou = false;
