@@ -51,13 +51,9 @@
   var carregou = false;
   document.getElementById('app').addEventListener('load', function () {
     carregou = true;
-    // v6: a tela de espera fica no mínimo 3 s desde a abertura (para dar tempo de ler o "by Billy");
-    // se o app já demorou mais que isso para carregar, não espera nada a mais.
-    var falta = Math.max(0, 3000 - performance.now());
-    setTimeout(function () {
-      var e = document.getElementById('espera');
-      if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); }
-    }, falta);
+    // v7: sem tempo mínimo — a tela de espera some assim que o app carregar.
+    var e = document.getElementById('espera');
+    if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); }
   });
   setTimeout(function () { var e = document.getElementById('espera'); if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); } }, 15000);
   setTimeout(function () { if (!carregou) document.getElementById('planoB').style.display = 'block'; }, 15000);
