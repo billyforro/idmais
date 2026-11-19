@@ -15,25 +15,35 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ID+">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- v9: fontes da tela de espera (Montserrat Black pro selo/texto, Lora Itálico pra assinatura "by Billy").
+     display=swap garante que o texto aparece na hora, numa fonte padrão, e troca suave quando a fonte chega —
+     nunca fica em branco esperando. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Lora:ital,wght@1,400;1,600;1,700&display=swap" rel="stylesheet">
 <style>
   html, body { margin:0; padding:0; height:100%; background:#0A2234; overflow:hidden; }
   iframe { position:fixed; inset:0; width:100%; height:100%; border:0; display:block; }
-  /* v4: tela de espera "Preparando o Carômetro..." — some assim que o app carrega */
+  /* v4: tela de espera "Preparando o Carômetro..." — some assim que o app carrega
+     v8: texto simplificado pra "CARÔMETRO...", selo e texto em Montserrat Black (sem respiro apertado),
+         assinatura "by Billy" maior e com brilho
+     v9: assinatura "by Billy" trocada pra Lora Itálico (semi-negrito) */
   #espera { position:fixed; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
     background:radial-gradient(circle at 50% 40%, #16324F 0%, #0A2234 70%); color:#fff; font-family:Arial, Helvetica, sans-serif;
     transition:opacity .45s ease; }
   #espera.some { opacity:0; pointer-events:none; }
   #espera .selo { width:92px; height:92px; border-radius:24px; background:#EC268F; display:flex; align-items:center; justify-content:center;
-    font:900 38px/1 Arial, Helvetica, sans-serif; letter-spacing:-2px; color:#fff; box-shadow:0 10px 30px rgba(236,38,143,.45);
+    font:900 38px/1 'Montserrat', Arial, Helvetica, sans-serif; letter-spacing:0; color:#fff; box-shadow:0 10px 30px rgba(236,38,143,.45);
     animation:pulsa 1.4s ease-in-out infinite; }
   #espera .selo i { font-style:normal; color:#fff; }
-  #espera .texto { font-size:19px; font-weight:700; letter-spacing:.2px; }
+  #espera .texto { font-family:'Montserrat', Arial, Helvetica, sans-serif; font-size:22px; font-weight:900; letter-spacing:.5px; }
   #espera .texto span { display:inline-block; animation:pontos 1.2s steps(4,end) infinite; width:1.3em; text-align:left; overflow:hidden; vertical-align:bottom; }
   #espera .barra { width:160px; height:5px; border-radius:3px; background:rgba(255,255,255,.18); overflow:hidden; }
   #espera .barra i { display:block; width:40%; height:100%; border-radius:3px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
-  /* v5: assinatura discreta na tela de espera */
-  #espera .assinatura { font-size:15px; font-weight:400; letter-spacing:.4px; color:rgba(255,255,255,.55); margin-top:-6px; }
-  #espera .assinatura b { color:#F6A6D1; font-weight:700; }
+  /* v9: assinatura em Lora Itálico, peso semi-negrito (600) */
+  #espera .assinatura { font-family:'Lora', Georgia, serif; font-style:italic; font-size:25px; font-weight:600; letter-spacing:.3px; color:#fff; margin-top:0;
+    text-shadow:0 0 16px rgba(236,38,143,.9), 0 0 3px rgba(255,255,255,.55); }
+  #espera .assinatura b { color:#F6A6D1; font-weight:600; }
   @keyframes pulsa { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); box-shadow:0 14px 36px rgba(236,38,143,.6); } }
   @keyframes pontos { 0% { width:0; } 100% { width:1.3em; } }
   @keyframes corre { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
@@ -45,7 +55,7 @@
 </head>
 <body>
 <iframe id="app" src="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec" title="ID+ Carômetro" allow="clipboard-write; autoplay; fullscreen"></iframe>
-<div id="espera" aria-live="polite"><div class="selo">ID<i>+</i></div><div class="texto">Preparando o Carômetro<span>...</span></div><div class="barra"><i></i></div><div class="assinatura">by <b>Billy</b></div></div>
+<div id="espera" aria-live="polite"><div class="selo">ID<i>+</i></div><div class="texto">CARÔMETRO<span>...</span></div><div class="barra"><i></i></div><div class="assinatura">by <b>Billy</b></div></div>
 <a id="planoB" href="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec">Abrir o ID+</a>
 <script>
   var carregou = false;
