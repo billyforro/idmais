@@ -1,5 +1,6 @@
 <!doctype html>
 <!-- ID+ Carômetro – página de entrada (GitHub Pages)
+     v13 – 21/11/2026 – iPhone: o app agora começa ABAIXO da barra de status (hora/bateria/sinal), que antes cobria o topo do cabeçalho. Android não muda.
      v12 – 21/11/2026 – aviso no rodapé da tela de espera: "Aguarde um instante"; passados 8 s sem carregar, troca para "Quase lá, só mais um pouquinho"
      v11 – 21/11/2026 – tela de espera: ícone rosa trocado pelo crachá (cracha-espera.webp, 150px de largura), com pulsada média e brilho rosa
      v10 – 21/11/2026 – tela de espera maior: ícone 100px, pulsada média, CARÔMETRO 26px, barra 200x7px, by Billy 28px, espaço 20px
@@ -29,7 +30,9 @@
 <link rel="preload" as="image" href="cracha-espera.webp">
 <style>
   html, body { margin:0; padding:0; height:100%; background:#0A2234; overflow:hidden; }
-  iframe { position:fixed; inset:0; width:100%; height:100%; border:0; display:block; }
+  /* v13: no iPhone em tela cheia a barra de status (hora, bateria) fica por cima da página (black-translucent).
+     O app começa logo abaixo dela; a faixa de cima fica azul-marinho, igual ao fundo. No Android env() vale 0 e nada muda. */
+  iframe { position:fixed; top:env(safe-area-inset-top, 0px); left:0; width:100%; height:calc(100% - env(safe-area-inset-top, 0px)); border:0; display:block; }
   /* v4: tela de espera "Preparando o Carômetro..." — some assim que o app carrega
      v8: texto simplificado pra "CARÔMETRO...", selo e texto em Montserrat Black (sem respiro apertado),
          assinatura "by Billy" maior e com brilho
