@@ -1,4 +1,7 @@
 <!doctype html>
+<!-- ID+ Carômetro – página de entrada (GitHub Pages)
+     v10 – 21/11/2026 – tela de espera maior: ícone 100px, pulsada média, CARÔMETRO 26px, barra 200x7px, by Billy 28px, espaço 20px
+     v9  – assinatura "by Billy" em Lora Itálico semi-negrito -->
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -27,24 +30,26 @@
   /* v4: tela de espera "Preparando o Carômetro..." — some assim que o app carrega
      v8: texto simplificado pra "CARÔMETRO...", selo e texto em Montserrat Black (sem respiro apertado),
          assinatura "by Billy" maior e com brilho
+     v10: tudo um pouco maior (ver cabeçalho do arquivo)
      v9: assinatura "by Billy" trocada pra Lora Itálico (semi-negrito) */
-  #espera { position:fixed; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  #espera { position:fixed; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
     background:radial-gradient(circle at 50% 40%, #16324F 0%, #0A2234 70%); color:#fff; font-family:Arial, Helvetica, sans-serif;
     transition:opacity .45s ease; }
   #espera.some { opacity:0; pointer-events:none; }
-  #espera .selo { width:92px; height:92px; border-radius:24px; background:#EC268F; display:flex; align-items:center; justify-content:center;
-    font:900 38px/1 'Montserrat', Arial, Helvetica, sans-serif; letter-spacing:0; color:#fff; box-shadow:0 10px 30px rgba(236,38,143,.45);
+  #espera .selo { width:100px; height:100px; border-radius:26px; background:#EC268F; display:flex; align-items:center; justify-content:center;
+    font:900 41px/1 'Montserrat', Arial, Helvetica, sans-serif; letter-spacing:0; color:#fff; box-shadow:0 10px 30px rgba(236,38,143,.45);
     animation:pulsa 1.4s ease-in-out infinite; }
   #espera .selo i { font-style:normal; color:#fff; }
-  #espera .texto { font-family:'Montserrat', Arial, Helvetica, sans-serif; font-size:22px; font-weight:900; letter-spacing:.5px; }
+  #espera .texto { font-family:'Montserrat', Arial, Helvetica, sans-serif; font-size:26px; font-weight:900; letter-spacing:.5px; }
   #espera .texto span { display:inline-block; animation:pontos 1.2s steps(4,end) infinite; width:1.3em; text-align:left; overflow:hidden; vertical-align:bottom; }
-  #espera .barra { width:160px; height:5px; border-radius:3px; background:rgba(255,255,255,.18); overflow:hidden; }
-  #espera .barra i { display:block; width:40%; height:100%; border-radius:3px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
+  #espera .barra { width:200px; height:7px; border-radius:4px; background:rgba(255,255,255,.18); overflow:hidden; }
+  #espera .barra i { display:block; width:40%; height:100%; border-radius:4px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
   /* v9: assinatura em Lora Itálico, peso semi-negrito (600) */
-  #espera .assinatura { font-family:'Lora', Georgia, serif; font-style:italic; font-size:25px; font-weight:600; letter-spacing:.3px; color:#fff; margin-top:0;
+  #espera .assinatura { font-family:'Lora', Georgia, serif; font-style:italic; font-size:28px; font-weight:600; letter-spacing:.3px; color:#fff; margin-top:0;
     text-shadow:0 0 16px rgba(236,38,143,.9), 0 0 3px rgba(255,255,255,.55); }
   #espera .assinatura b { color:#F6A6D1; font-weight:600; }
-  @keyframes pulsa { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); box-shadow:0 14px 36px rgba(236,38,143,.6); } }
+  /* v10: pulsada média (antes leve: 1.08) */
+  @keyframes pulsa { 0%,100% { transform:scale(1); } 50% { transform:scale(1.14); box-shadow:0 16px 42px rgba(236,38,143,.7); } }
   @keyframes pontos { 0% { width:0; } 100% { width:1.3em; } }
   @keyframes corre { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
   /* Plano B: se o app não carregar dentro da porta em 15 s, aparece um botão para abrir direto */
