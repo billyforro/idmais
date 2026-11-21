@@ -1,5 +1,6 @@
 <!doctype html>
 <!-- ID+ Carômetro – página de entrada (GitHub Pages)
+     v12 – 21/11/2026 – aviso no rodapé da tela de espera: "Aguarde um instante"; passados 8 s sem carregar, troca para "Quase lá, só mais um pouquinho"
      v11 – 21/11/2026 – tela de espera: ícone rosa trocado pelo crachá (cracha-espera.webp, 150px de largura), com pulsada média e brilho rosa
      v10 – 21/11/2026 – tela de espera maior: ícone 100px, pulsada média, CARÔMETRO 26px, barra 200x7px, by Billy 28px, espaço 20px
      v9  – assinatura "by Billy" em Lora Itálico semi-negrito -->
@@ -50,6 +51,11 @@
     text-shadow:0 0 16px rgba(236,38,143,.9), 0 0 3px rgba(255,255,255,.55); }
   #espera .assinatura b { color:#F6A6D1; font-weight:600; }
   /* v10: pulsada média (antes leve: 1.08) */
+  /* v12: aviso no rodapé da tela de espera. Posição pela altura da tela (8vh, entre 28px e 80px) pra nunca encostar no "by Billy" em celular pequeno. */
+  #espera .aviso { position:absolute; left:0; right:0; bottom:calc(clamp(28px, 8vh, 80px) + env(safe-area-inset-bottom, 0px));
+    padding:0 20px; text-align:center; font-family:'Montserrat', Arial, Helvetica, sans-serif; font-size:16px; font-weight:700; line-height:1.3;
+    color:rgba(255,255,255,.82); transition:opacity .3s ease; }
+  #espera .aviso.troca { opacity:0; }
   @keyframes pulsa { 0%,100% { transform:scale(1); filter:drop-shadow(0 8px 22px rgba(236,38,143,.45)); } 50% { transform:scale(1.07); filter:drop-shadow(0 12px 30px rgba(236,38,143,.7)); } }
   @keyframes pontos { 0% { width:0; } 100% { width:1.3em; } }
   @keyframes corre { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
@@ -61,7 +67,7 @@
 </head>
 <body>
 <iframe id="app" src="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec" title="ID+ Carômetro" allow="clipboard-write; autoplay; fullscreen"></iframe>
-<div id="espera" aria-live="polite"><img class="cracha" src="cracha-espera.webp" width="150" alt=""><div class="texto">CARÔMETRO<span>...</span></div><div class="barra"><i></i></div><div class="assinatura">by <b>Billy</b></div></div>
+<div id="espera" aria-live="polite"><img class="cracha" src="cracha-espera.webp" width="150" alt=""><div class="texto">CARÔMETRO<span>...</span></div><div class="barra"><i></i></div><div class="assinatura">by <b>Billy</b></div><div class="aviso" id="aviso">Aguarde um instante</div></div>
 <a id="planoB" href="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec">Abrir o ID+</a>
 <script>
   var carregou = false;
@@ -71,6 +77,13 @@
     var e = document.getElementById('espera');
     if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); }
   });
+  // v12: passados 8 s sem carregar, o aviso troca (com esmaecido) para a segunda frase
+  setTimeout(function () {
+    var a = document.getElementById('aviso');
+    if (carregou || !a) return;
+    a.classList.add('troca');
+    setTimeout(function () { a.textContent = 'Quase lá, só mais um pouquinho'; a.classList.remove('troca'); }, 300);
+  }, 8000);
   setTimeout(function () { var e = document.getElementById('espera'); if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); } }, 15000);
   setTimeout(function () { if (!carregou) document.getElementById('planoB').style.display = 'block'; }, 15000);
 </script>
