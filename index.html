@@ -1,5 +1,6 @@
 <!doctype html>
 <!-- ID+ Carômetro – página de entrada (GitHub Pages)
+     v14 – 22/11/2026 – tela de espera: crachá trocado pela logo rosa ID+ (150px, mesma largura); o aviso sobe do rodapé para o lugar do texto CARÔMETRO (mesma fonte e brilho do Billy, mesma regra dos 8 s); "by Billy" vira só "Billy"; barra maior (300px) e mais fina (3px); Billy alinhado à direita da barra e mais perto dela; logo pulsa mais devagar (2s, antes 1,4s) e o Billy pulsa junto, no mesmo ritmo; Billy 30px (antes 28); textos "Só um instante..." (1ª) e "Quase pronto!" (2ª, após 8 s), fonte +1px
      v13 – 21/11/2026 – iPhone: o app agora começa ABAIXO da barra de status (hora/bateria/sinal), que antes cobria o topo do cabeçalho. Android não muda.
      v12 – 21/11/2026 – aviso no rodapé da tela de espera: "Aguarde um instante"; passados 8 s sem carregar, troca para "Quase lá, só mais um pouquinho"
      v11 – 21/11/2026 – tela de espera: ícone rosa trocado pelo crachá (cracha-espera.webp, 150px de largura), com pulsada média e brilho rosa
@@ -27,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Lora:ital,wght@1,400;1,600;1,700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="cracha-espera.webp">
+<link rel="preload" as="image" href="icone-512.png">
 <style>
   html, body { margin:0; padding:0; height:100%; background:#0A2234; overflow:hidden; }
   /* v13: no iPhone em tela cheia a barra de status (hora, bateria) fica por cima da página (black-translucent).
@@ -38,28 +39,31 @@
          assinatura "by Billy" maior e com brilho
      v10: tudo um pouco maior (ver cabeçalho do arquivo)
      v9: assinatura "by Billy" trocada pra Lora Itálico (semi-negrito) */
-  #espera { position:fixed; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
+  #espera { --pulso:2s; position:fixed; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
     background:radial-gradient(circle at 50% 40%, #16324F 0%, #0A2234 70%); color:#fff; font-family:Arial, Helvetica, sans-serif;
     transition:opacity .45s ease; }
   #espera.some { opacity:0; pointer-events:none; }
   /* v11: o crachá (imagem) no lugar do quadrado rosa. 150px de largura; a altura acompanha a imagem. */
-  #espera .cracha { display:block; width:150px; height:auto; animation:pulsa 1.4s ease-in-out infinite;
+  /* v14: logo rosa ID+ no lugar do crachá. 150px de largura (a mesma do crachá), quadrada, cantos arredondados. */
+  #espera .logo { display:block; width:150px; height:150px; border-radius:34px; animation:pulsa var(--pulso) ease-in-out infinite;
     filter:drop-shadow(0 8px 22px rgba(236,38,143,.45)); }
-  #espera .texto { font-family:'Montserrat', Arial, Helvetica, sans-serif; font-size:26px; font-weight:900; letter-spacing:.5px; }
-  #espera .texto span { display:inline-block; animation:pontos 1.2s steps(4,end) infinite; width:1.3em; text-align:left; overflow:hidden; vertical-align:bottom; }
-  #espera .barra { width:200px; height:7px; border-radius:4px; background:rgba(255,255,255,.18); overflow:hidden; }
-  #espera .barra i { display:block; width:40%; height:100%; border-radius:4px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
+  #espera .barra { width:100%; height:3px; border-radius:2px; background:rgba(255,255,255,.18); overflow:hidden; }
+  #espera .barra i { display:block; width:40%; height:100%; border-radius:2px; background:#EC268F; animation:corre 1.3s ease-in-out infinite; }
   /* v9: assinatura em Lora Itálico, peso semi-negrito (600) */
-  #espera .assinatura { font-family:'Lora', Georgia, serif; font-style:italic; font-size:28px; font-weight:600; letter-spacing:.3px; color:#fff; margin-top:0;
+  #espera .assinatura, #espera .aviso { font-family:'Lora', Georgia, serif; font-style:italic; font-weight:600; letter-spacing:.3px; color:#fff; margin-top:0;
     text-shadow:0 0 16px rgba(236,38,143,.9), 0 0 3px rgba(255,255,255,.55); }
+  /* v14: o Billy pulsa junto com a logo (mesma duração --pulso, começam juntos), na mesma escala 1,07 e com o brilho aumentando */
+  #espera .assinatura { font-size:30px; line-height:1.1; transform-origin:100% 50%; animation:pulsaBilly var(--pulso) ease-in-out infinite; }
+  /* v14: barra + Billy num bloco só; o Billy fica na ponta direita da barra, 8px abaixo dela (antes ficava centrado, 20px abaixo) */
+  #espera .grupo { display:flex; flex-direction:column; align-items:flex-end; gap:8px; width:min(300px, 80vw); }
   #espera .assinatura b { color:#F6A6D1; font-weight:600; }
   /* v10: pulsada média (antes leve: 1.08) */
-  /* v12: aviso no rodapé da tela de espera. Posição pela altura da tela (8vh, entre 28px e 80px) pra nunca encostar no "by Billy" em celular pequeno. */
-  #espera .aviso { position:absolute; left:0; right:0; bottom:calc(clamp(28px, 8vh, 80px) + env(safe-area-inset-bottom, 0px));
-    padding:0 20px; text-align:center; font-family:'Montserrat', Arial, Helvetica, sans-serif; font-size:16px; font-weight:700; line-height:1.3;
-    color:rgba(255,255,255,.82); transition:opacity .3s ease; }
+  /* v14: o aviso saiu do rodapé e ficou no lugar do antigo texto CARÔMETRO, com a mesma fonte/brilho do Billy.
+     Tamanho acompanha a largura da tela (20 a 25px). */
+  #espera .aviso { text-align:center; white-space:nowrap; font-size:clamp(20px, 5.85vw, 25px); line-height:1.3; transition:opacity .3s ease; }
   #espera .aviso.troca { opacity:0; }
   @keyframes pulsa { 0%,100% { transform:scale(1); filter:drop-shadow(0 8px 22px rgba(236,38,143,.45)); } 50% { transform:scale(1.07); filter:drop-shadow(0 12px 30px rgba(236,38,143,.7)); } }
+  @keyframes pulsaBilly { 0%,100% { transform:scale(1); text-shadow:0 0 16px rgba(236,38,143,.9), 0 0 3px rgba(255,255,255,.55); } 50% { transform:scale(1.07); text-shadow:0 0 24px rgba(236,38,143,1), 0 0 4px rgba(255,255,255,.7); } }
   @keyframes pontos { 0% { width:0; } 100% { width:1.3em; } }
   @keyframes corre { 0% { transform:translateX(-100%); } 100% { transform:translateX(260%); } }
   /* Plano B: se o app não carregar dentro da porta em 15 s, aparece um botão para abrir direto */
@@ -70,7 +74,7 @@
 </head>
 <body>
 <iframe id="app" src="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec" title="ID+ Carômetro" allow="clipboard-write; autoplay; fullscreen"></iframe>
-<div id="espera" aria-live="polite"><img class="cracha" src="cracha-espera.webp" width="150" alt=""><div class="texto">CARÔMETRO<span>...</span></div><div class="barra"><i></i></div><div class="assinatura">by <b>Billy</b></div><div class="aviso" id="aviso">Aguarde um instante</div></div>
+<div id="espera" aria-live="polite"><img class="logo" src="icone-512.png" width="150" height="150" alt=""><div class="aviso" id="aviso">Só um instante...</div><div class="grupo"><div class="barra"><i></i></div><div class="assinatura"><b>Billy</b></div></div></div>
 <a id="planoB" href="https://script.google.com/macros/s/AKfycbzFXwTnhdzgTsCsT_p2FH0Go7FYmBX5H6LJ3wzgLh6vvSeMLLCb2yyi1eb7rKN5Ge-nNw/exec">Abrir o ID+</a>
 <script>
   var carregou = false;
@@ -80,12 +84,12 @@
     var e = document.getElementById('espera');
     if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); }
   });
-  // v12: passados 8 s sem carregar, o aviso troca (com esmaecido) para a segunda frase
+  // v12: passados 8 s sem carregar, o aviso troca (com esmaecido) para a segunda frase (v14: "Quase pronto!")
   setTimeout(function () {
     var a = document.getElementById('aviso');
     if (carregou || !a) return;
     a.classList.add('troca');
-    setTimeout(function () { a.textContent = 'Quase lá, só mais um pouquinho'; a.classList.remove('troca'); }, 300);
+    setTimeout(function () { a.textContent = 'Quase pronto!'; a.classList.remove('troca'); }, 300);
   }, 8000);
   setTimeout(function () { var e = document.getElementById('espera'); if (e) { e.classList.add('some'); setTimeout(function () { e.remove(); }, 500); } }, 15000);
   setTimeout(function () { if (!carregou) document.getElementById('planoB').style.display = 'block'; }, 15000);
